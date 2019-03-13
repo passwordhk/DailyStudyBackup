@@ -1,2 +1,2 @@
 # learngit
-测试测试
+This is a test ！ Learn to use Git. So powerful
