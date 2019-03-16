@@ -12,7 +12,7 @@ import numpy as np
 def get_timestep_data():
     print('请确保使用前将dump文件命名为dump.atom且与此脚本同目录！！！', end='')
     input_aim = input('请输入您需转换的步长数据，并仔细核对:')
-    with open('dump4.atom', 'r') as f:
+    with open('dump.atom', 'r') as f:
         rows = f.read()
         # print(rows)
         # rule = '{}(.*?)ITEM: T'.format(input_aim)
