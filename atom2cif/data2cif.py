@@ -9,8 +9,9 @@ import datetime
 import pandas as pd
 import numpy as np
 
+
 def get_timestep_data():
-    print('请确保使用前将dump文件命名为dump.atom且与此脚本同目录！！！', end='')
+    print("请确保使用前将dump文件命名为dump.atom且与此脚本同目录！！！", end="")
     input_aim = input('请输入您需转换的步长数据，并仔细核对:')
     with open('dump.atom', 'r') as f:
         rows = f.read()
@@ -28,10 +29,11 @@ def get_timestep_data():
     #     print(type(row.strip()))
     # col1 = [row.strip() for row in f.read().split('\n') if row.strip()]
     # print(col1)
-    f_aim_text=open('aim_middle.atom', 'w')
+    f_aim_text = open('aim_middle.atom', 'w')
     f_aim_text.write(aim_text_string)
     f_aim_text.close()
     print('以获取目标数据块...')
+
 
 def create_cif_raw():
     raw_cif = open('output.cif', 'w')
@@ -54,20 +56,20 @@ def create_cif_raw():
     box_height = float(boxsize[2][1]) - float(boxsize[2][0])
     print('计算盒子尺寸成功...', box_long, box_weight, box_height)
     header_text = '''data_reax2ms
-_audit_creation_date	{}
-_audit_creation_method	'Materials Studio'
-_symmetry_space_group_name_H-M	'P1'
-_symmetry_Int_Tables_number	1
-_symmetry_cell_setting	triclinic
+_audit_creation_date    {}
+_audit_creation_method  'Materials Studio'
+_symmetry_space_group_name_H-M  'P1'
+_symmetry_Int_Tables_number 1
+_symmetry_cell_setting  triclinic
 loop_
 _symmetry_equiv_pos_as_xyz
   x,y,z
-_cell_length_a	{}
-_cell_length_b	{}
-_cell_length_c	{}
-_cell_angle_alpha	90.0000
-_cell_angle_beta	90.0000
-_cell_angle_gamma	90.0000
+_cell_length_a  {}
+_cell_length_b  {}
+_cell_length_c  {}
+_cell_angle_alpha   90.0000
+_cell_angle_beta    90.0000
+_cell_angle_gamma   90.0000
 loop_
 _atom_site_label
 _atom_site_type_symbol
@@ -134,17 +136,19 @@ def convert2cif():
     # df.round(decimals)
     # print(df.head())
 
-    body_cif = df.to_csv('body.cif', float_format='%.6f', header=None, index=None, sep='\t', encoding='utf-8')
+    body_cif = df.to_csv('body.cif', float_format='%.6f',
+                         header=None, index=None, sep='\t', encoding='utf-8')
     f3 = open('body.cif', 'r')
-    wrinte_in =f3.read()
+    wrinte_in = f3.read()
     f3.close()
     final = open('output.cif', 'a+')
-    final.write('\n'+ wrinte_in)
+    final.write('\n' + wrinte_in)
     final.close()
+
 
 if __name__ == '__main__':
     get_timestep_data()
     create_cif_raw()
     convert2cif()
     end = datetime.datetime.now()
-    print('转换成功，耗时{}秒...\n已在此目录下生成output.cif目标文件！！！'.format(end-start))
+    print('转换成功，耗时{}秒...\n已在此目录下生成output.cif目标文件！！！'.format(end - start))
