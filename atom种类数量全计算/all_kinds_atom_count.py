@@ -1,5 +1,6 @@
 import linecache
 import datetime
+from copy import deepcopy
 def all_kinds_atom_count():
 	path = 'species.out'
 	content = ''
@@ -42,9 +43,9 @@ def all_kinds_atom_count():
 	for i,j in zip(odd_row,even_row):
 	    tem_dict = dict(zip(i, j))
 	#     print(tem_dict)
-	    middle = templet_dict                
+	    middle = deepcopy(templet_dict)                
 	    for key,value in tem_dict.items():
-	        templet_dict[key] = value
+	        middle[key] = value
 	    w = templet_row.format(**middle)
 	    f.write(w+'\n')
 	f.close()
