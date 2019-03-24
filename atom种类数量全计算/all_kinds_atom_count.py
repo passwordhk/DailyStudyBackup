@@ -26,7 +26,7 @@ def all_kinds_atom_count():
 	li.sort()
 	header = ['Timestep','No_Moles','No_Specs']
 	new_column = header + li
-	templet_dict = dict.fromkeys(new_column,'') # 生成一个固定格式的字典以供写入，默认值为空
+	templet_dict = dict.fromkeys(new_column,'0') # 生成一个固定格式的字典以供写入，默认值为空
 	a = ''
 	for i in new_column:
 	    a += ''.join('{%s} ' % i)
@@ -56,4 +56,4 @@ if __name__ == '__main__':
 		   csv recorded all kinds of atom with thier account!''')
 	all_kinds_atom_count()
 	end = datetime.datetime.now()
-	print(f'Converted Success!Time consumed：{end - start}')
+	print('Converted Success!Time consumed：{}'.format((end - start)))
