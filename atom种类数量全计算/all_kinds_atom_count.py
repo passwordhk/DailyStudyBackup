@@ -1,27 +1,33 @@
 import linecache
 import datetime
 from copy import deepcopy
+import csv
 def all_kinds_atom_count():
 	path = 'species.out'
 	content = ''
 	cache_data = linecache.getlines(path)
 	for line in range(len(cache_data)):
-	    content += cache_data[line].replace('#','')
+	    content += cache_data[line].replace('# ','')
 	f = open('middle_cache.out','w')
 	f.write(content)
 	f.close
-	data = linecache.getlines('middle_cache.out')
+
+	with open('middle_cache.out') as f:
+		data_reader = csv.reader(f)
+		data = list(data_reader)
+	# data = linecache.getlines('middle_cache.out')
 	odd_row_raw = data[::2]
 	even_row_raw = data[1::2]
+	# print(odd_row_raw)
 	odd_row = []
 	even_row = []
 	for i,j in zip(even_row_raw,odd_row_raw):
-	    even_row.append(i.strip().split())
-	    odd_row.append(j.strip().split())
-
+	    even_row.append(i[0].strip().split())
+	    odd_row.append(j[0].strip().split())
+	# print(odd_row)
 	formula = set()
 	for i in odd_row:
-	    for j in i[3:]:
+	    for j in i[2:]:
 	        formula.add(j)
 	li = list(formula)
 	li.sort()
@@ -38,7 +44,7 @@ def all_kinds_atom_count():
 	    b += j+','
 	first_row = b.rstrip(',')  # 准备columns,用逗号分隔
 	# 数据写入部分
-	f = open('out.csv','a+')
+	f = open('out.csv','w')
 	f.write(first_row+'\n')
 	for i,j in zip(odd_row,even_row):
 	    tem_dict = dict(zip(i, j))
