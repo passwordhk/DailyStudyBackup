@@ -8,7 +8,7 @@ import re
 import datetime
 import pandas as pd
 import numpy as np
-
+import os
 
 def get_timestep_data():
     print("请确保使用前将dump文件命名为dump.atom且与此脚本同目录！！！", end="")
@@ -17,7 +17,7 @@ def get_timestep_data():
         rows = f.read()
         # print(rows)
         # rule = '{}(.*?)ITEM: T'.format(input_aim)
-        rule = '{}.*?(?=ITEM: T)'.format(input_aim)
+        rule = 'ITEM: TIMESTEP\n{}.*?(?=ITEM: T)'.format(input_aim)
         aim_text_list = re.findall(rule, rows, re.S)
         global aim_text_string
         aim_text_string = aim_text_list[0]
@@ -151,4 +151,7 @@ if __name__ == '__main__':
     create_cif_raw()
     convert2cif()
     end = datetime.datetime.now()
+    os.remove('aim_middle.atom')
+    os.remove('body.cif')
+    os.remove('out2pandas.txt')
     print('转换成功，耗时{}秒...\n已在此目录下生成output.cif目标文件！！！'.format(end - start))

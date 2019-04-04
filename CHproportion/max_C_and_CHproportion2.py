@@ -150,17 +150,29 @@ H_count = []
 for i in atom_count:
     H_count.append(int(i[1]))
 
-print('数据分析完成，正在绘图请耐心等待！')
-
-print('正在绘制C / ps...')
-sns.stripplot(x=moment, y=C_cout)
-plt.show()
-print('正在绘制C/H...')
 CHproportion = []
 for i, j in zip(C_cout, H_count):
     CHproportion.append(i / j)
-# print(CHproportion)
-sns.stripplot(x=moment, y=CHproportion)
-plot.show()
+HCproportion = []
+for i, j in zip(C_cout, H_count):
+    HCproportion.append(j / i)
+out = list(zip(moment,formula,C_cout,H_count,CHproportion,HCproportion))
+f_out = open('out.csv','w')
+f_out.write('Timestep,formula,C_cout,H_count,C/H,H/C\n')
+for i in out:
+	f_out.write(str(i).strip('()')+'\n')
+f_out.close()
 
-print('Done!!!')
+# print('数据分析完成，正在绘图请耐心等待！')
+
+# print('正在绘制C / ps...')
+# sns.stripplot(x=moment, y=C_cout)
+# plt.show()
+# print('正在绘制C/H...')
+# CHproportion = []
+# for i, j in zip(C_cout, H_count):
+#     CHproportion.append(i / j)
+# sns.stripplot(x=moment, y=CHproportion)
+# plot.show()
+
+# print('Done!!!')
