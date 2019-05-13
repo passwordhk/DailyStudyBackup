@@ -2,7 +2,7 @@ import re
 import csv
 import os
 import collections
-with open('xianglongkai.out') as f:
+with open('species.out') as f:
     raw = f.readlines()
     for_raw = []
     for i in raw:
@@ -183,9 +183,9 @@ def parse(csv_dict):
     for i in inorganic_Ca_complexes:
         value4 += cal_mass(i) * int(csv_dict.get(i))
 
-    total = value0 + value1 + value2 + value3
+    mass_total = value0 + value1 + value2 + value3 + value4
 
-    return [csv_dict.get('Timestep'),str(value0/total),str(value1/total),str(value2/total),str(value3/total),str(value4/total)]
+    return [csv_dict.get('Timestep'),str(value0/mass_total),str(value1/mass_total),str(value2/mass_total),str(value3/mass_total),str(value4/mass_total), str(mass_total)]
 
 def write_to_file(out):
     with open('result.csv','a+') as res:
@@ -194,7 +194,7 @@ def main():
     a = eval(input('请输入起始步长：'))
     b = eval(input('请输入间隔间距：'))
     c = eval(input('请输入所需数据的组数:'))
-    write_to_file(['Timestep','C4_and_others','C5_39','C40_Cmax','Ca','inorganic_Ca_complexes'])
+    write_to_file(['Timestep','C4_and_others','C5_39','C40_Cmax','Ca','inorganic_Ca_complexes,','mass_total'])
     try:
         for i in range(c):
             content0 = get_two_lines(a)
